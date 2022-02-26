@@ -33,6 +33,17 @@ export class CityMaker {
     cityName.anchorY = 'bottom-baseline';
     cityName.position.set(0, 1, 0);
     this._marker.add(cityName)
+  }
+
+  createCityDistance(distance){
+    const distanceTxt = new Text();
+    distanceTxt.text = Math.round(distance/1000) + ' km';
+    distanceTxt.fontSize = 0.2;
+    distanceTxt.color = 0xffffff;
+    distanceTxt.anchorX = 'center';
+    distanceTxt.anchorY = 'bottom-baseline';
+    distanceTxt.position.set(0, 0.6, 0);
+    this._marker.add(distanceTxt);
 
   }
 

@@ -1,28 +1,38 @@
 export const cities = [
   {
     city: 'Kiev',
-    lat: 50.43587465608649, 
-    long: 30.544295151135124
+    latitude: 50.43587465608649, 
+    longitude: 30.544295151135124
   },
   {
     city:'Vienna',
-    lat: 48.20907248207232, 
-    long: 16.36903899789142
+    latitude: 48.18620342996843, 
+    longitude:  16.31721754690812 
   },
   {
     city: 'Rome',
-    lat: 41.89959068188835,
-    long: 12.499001471940089
+    latitude: 41.89959068188835,
+    longitude: 12.499001471940089
   },
   {
     city: 'Berlin',
-    lat: 52.518566593772434, 
-    long: 13.384557419577815
+    latitude: 52.518566593772434, 
+    longitude: 13.384557419577815
   },
  
   {
     city: 'Moscow',
-    lat: 55.7534732891378, 
-    long: 37.619928723228604
+    latitude: 55.7534732891378, 
+    longitude: 37.619928723228604
+  },
+  {
+    city: 'Paris',
+    latitude: 48.85456643333028, 
+    longitude: 2.3466446581385947
+  },
+  {
+    city: 'Prague',
+    latitude: 50.07449837903481,
+    longitude: 14.433526614545237
   }
 ]

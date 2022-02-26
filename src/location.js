@@ -32,6 +32,15 @@ function getLocalPosition$(){
   return localPosition$.asObservable();
 }
 
+function init(success){
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+  navigator.geolocation.getCurrentPosition(success, onError, options)
+}
+
 function initGPSWatch(){
 
   localPosition$ = new BehaviorSubject({coords:{latitude: 0, longitude: 0}});
@@ -45,6 +54,7 @@ function initGPSWatch(){
 }
 
 export const location = {
+  init,
   initGPSWatch,
   getLocalPosition$
 }
