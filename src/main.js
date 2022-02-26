@@ -3,15 +3,15 @@ import '../css/style.css';
 import { Scene, PerspectiveCamera, WebGLRenderer, Group, BoxGeometry, MeshBasicMaterial, Mesh, DirectionalLight, AmbientLight} from 'three';
 
 import { createArrow } from './shapes';
-import { Compass3d} from './Compass3d';
+import { GeoMap } from './geomap';
+
 import { ArjsDeviceOrientationControls } from './ArjsDeviceOrientationControls';
 import { Vector3 } from 'three';
 
 let scene, camera, renderer;
-let world;
+let world, geoMap;
 let arrow;
-let orientation;
-let orientationControls
+let orientationControls;
 
 function init(){
   scene = new Scene();
@@ -20,17 +20,12 @@ function init(){
   resize();
   document.body.appendChild(renderer.domElement);
   setupSceneContent();
-  //initOrientation();
+
   initDeviceOrientationControls();
   update();
 }
 
-function initOrientation(){
-  Compass3d.init();
-  Compass3d.getBearing$().subscribe((value) => {
-    orientation = value;
-  }) 
-}
+
 
 function initDeviceOrientationControls(){
   orientationControls = new ArjsDeviceOrientationControls(world);
@@ -40,6 +35,7 @@ function initDeviceOrientationControls(){
 function setupSceneContent(){
  
   world = new Group();
+  geoMap = new GeoMap(world);
   scene.add(world);
   setLights();
   arrow = createArrow();
@@ -66,8 +62,6 @@ function test(){
 
 function update(){
   requestAnimationFrame(update);
-
-  //world.rotation.set(0, orientation, 0 )
   orientationControls.update();
   renderer.render(scene, camera);
 }
