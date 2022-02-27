@@ -8,6 +8,7 @@ import { GeoMap } from './geomap';
 import { ArjsDeviceOrientationControls } from './ArjsDeviceOrientationControls';
 import { Vector3 } from 'three';
 import { CameraPreview } from './camera-preview';
+import { FireMarker } from './fire';
 
 let scene, camera, renderer;
 let world, geoMap;
@@ -48,6 +49,8 @@ function setupSceneContent(){
   arrow.position.set(0, -1  , 0);
   world.add(arrow);
 
+  const fire = FireMarker.createFireMarker();
+  world.add(fire);
   camera.position.set(0, 0, 3);
   camera.lookAt(new Vector3(0,0,0));
 }
@@ -70,6 +73,7 @@ function update(){
   requestAnimationFrame(update);
   orientationControls.update();
   cameraPreview.update();
+  FireMarker.update();
   renderer.render(scene, camera);
 }
 
