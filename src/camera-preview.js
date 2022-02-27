@@ -43,6 +43,7 @@ export class CameraPreview{
   }
 
   update() {
+    this.texCamera.needsUpdate = true;
     this.renderer.clear();
     this.renderer.render(this.texScene, this.texCamera);
     this.renderer.clearDepth();

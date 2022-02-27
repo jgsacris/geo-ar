@@ -34,5 +34,10 @@ export const cities = [
     city: 'Prague',
     latitude: 50.07449837903481,
     longitude: 14.433526614545237
+  },
+  {
+    city: 'London',
+    latitude: 51.50494253772326,
+    longitude:  -0.1282238264925937
   }
 ]

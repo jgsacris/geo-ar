@@ -14,6 +14,7 @@
 
 
 import { Vector3, Euler, Quaternion, Math as ThreeMath } from "three";
+import { isIOS } from "./device";
 
 export class ArjsDeviceOrientationControls {
   constructor(object) {
@@ -35,6 +36,8 @@ export class ArjsDeviceOrientationControls {
     this.TWO_PI = 2 * Math.PI;
     this.HALF_PI = 0.5 * Math.PI;
 
+    this.isIOS = isIOS;
+
     var onDeviceOrientationChangeEvent = function (event) {
 
       scope.deviceOrientation = event;
@@ -46,6 +49,10 @@ export class ArjsDeviceOrientationControls {
       scope.screenOrientation = window.orientation || 0;
 
     };
+
+    this.startIOSCompass = () => {
+      window.addEventListener("deviceorientation", onDeviceOrientationChangeEvent, true)
+    }
 
     // The angles alpha, beta and gamma form a set of intrinsic Tait-Bryan angles of type Z-X'-Y''
     var setObjectQuaternion = function () {
@@ -75,12 +82,13 @@ export class ArjsDeviceOrientationControls {
     this.connect = function () {
 
       onScreenOrientationChangeEvent();
-
-      window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
-      //window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
-      window.addEventListener('deviceorientationabsolute', onDeviceOrientationChangeEvent, false);
-
-      scope.enabled = true;
+      if(!this.isIOS){
+        window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
+        window.addEventListener('deviceorientationabsolute', onDeviceOrientationChangeEvent, false);
+        scope.enabled = true;
+      }
+     
+      
 
     };
 
@@ -99,7 +107,7 @@ export class ArjsDeviceOrientationControls {
         return;
 
       var device = scope.deviceOrientation;
-
+     
       if (device) {
 
         var alpha = device.alpha ? ThreeMath.degToRad(device.alpha) + scope.alphaOffset : 0; // Z

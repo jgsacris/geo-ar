@@ -17,11 +17,9 @@ export class GeoMap{
   createCities(){
     const r = 10;
     location.init((localPosition) => {
-      console.log('position', localPosition);
       const center = new Vector3(0,0,0);
       const coords = localPosition.coords;
       this.cityMarkers = cities.map(city => {
-        console.log('city', city);
         let marker;
         const cm = new CityMaker(city.city);
         if(city.city === 'Kyiv'){
@@ -49,7 +47,6 @@ export class GeoMap{
 
         cm.createCityDistance(distance);
 
-        console.log('bearing for '+city.city, bearing);
         const radBearing = MathUtils.degToRad(bearing);
         const y = r * Math.cos(radBearing);
         const x = r * Math.sin(-radBearing);
@@ -57,7 +54,7 @@ export class GeoMap{
         if(city.city === 'Kyiv'){
           this.arrow.rotation.z = radBearing;
         }
-        marker.position.set(x, 0, y);
+        marker.position.set(x, 1, y);
         marker.lookAt(center);
         this.world.add(marker);
 

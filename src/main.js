@@ -8,40 +8,88 @@ import { GeoMap } from './geomap';
 import { ArjsDeviceOrientationControls } from './ArjsDeviceOrientationControls';
 import { Vector3 } from 'three';
 import { CameraPreview } from './camera-preview';
+import { isIOS} from './device';
 
 let scene, camera, renderer;
 let world, geoMap;
 let arrow;
 let orientationControls;
 let cameraPreview;
+let started = false;
 
 function init(){
+  console.log('v 0.0.3');
   scene = new Scene();
   camera = new PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-  renderer = new WebGLRenderer({antialias:true});
+  renderer = new WebGLRenderer({antialias:true, alpha:true});
   
   resize();
-  document.body.appendChild(renderer.domElement);
-  setupSceneContent();
-
-  
+  const main = document.getElementById('main');
+  main.appendChild(renderer.domElement);
+  world = new Group();
+ 
+  if(isIOS){
+    setupPermissions();
+    started = false;
+  }
+  else {
+    setupSceneContent();
+    
+  }
   initDeviceOrientationControls();
+ 
   cameraPreview = new CameraPreview(scene, renderer);
   cameraPreview.play();
   update();
 }
 
+function setupPermissions(){
+  const overlay = document.querySelector('.overlay');
+  overlay.style.display = 'block';
+  const startBtn = document.querySelector('.start-btn');
+  startBtn.addEventListener('click', () => {
+    DeviceOrientationEvent.requestPermission()
+      .then((response) => {
+        if (response === "granted") {
+          orientationControls.startIOSCompass();
+          setupSceneContent();
+          overlay.remove();
 
+        } else {
+          alert("has to be allowed!");
+        }
+      })
+      .catch(() => alert("not supported"));
+
+  })
+
+}
+
+function testLocation(){
+  const options = {
+    enableHighAccuracy: true,
+    timeout: 5000,
+    maximumAge: 0
+  };
+  navigator.geolocation.getCurrentPosition(()=>{
+    console.log('onsuccess')
+  }, 
+  (err) => {
+    console.warn('error', err);
+  }
+  , options)
+}
 
 function initDeviceOrientationControls(){
   orientationControls = new ArjsDeviceOrientationControls(world);
-  orientationControls.alphaOffset = Math.PI;
+  if(!isIOS){
+    orientationControls.alphaOffset = Math.PI;
+  }
 }
 
 function setupSceneContent(){
  
-  world = new Group();
- 
+  
   scene.add(world);
   setLights();
   arrow = createArrow();
@@ -53,6 +101,8 @@ function setupSceneContent(){
 
   camera.position.set(0, 0, 3);
   camera.lookAt(new Vector3(0,0,0));
+
+  started = true;
 }
 
 function setLights(){
@@ -66,6 +116,7 @@ function setLights(){
 
 function update(){
   requestAnimationFrame(update);
+  if(!started) return;
   orientationControls.update();
   cameraPreview.update();
   geoMap.update();
