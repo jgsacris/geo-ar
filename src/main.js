@@ -8,7 +8,6 @@ import { GeoMap } from './geomap';
 import { ArjsDeviceOrientationControls } from './ArjsDeviceOrientationControls';
 import { Vector3 } from 'three';
 import { CameraPreview } from './camera-preview';
-import { FireMarker } from './fire';
 
 let scene, camera, renderer;
 let world, geoMap;
@@ -42,15 +41,16 @@ function initDeviceOrientationControls(){
 function setupSceneContent(){
  
   world = new Group();
-  geoMap = new GeoMap(world);
+ 
   scene.add(world);
   setLights();
   arrow = createArrow();
   arrow.position.set(0, -1  , 0);
+
+  geoMap = new GeoMap(world, arrow);
   world.add(arrow);
 
-  const fire = FireMarker.createFireMarker();
-  world.add(fire);
+
   camera.position.set(0, 0, 3);
   camera.lookAt(new Vector3(0,0,0));
 }
@@ -62,18 +62,13 @@ function setLights(){
   scene.add( light );
 }
 
-function test(){
-  const geometry = new BoxGeometry();
-  const material = new MeshBasicMaterial( { color: 0x00ff00 } );
-  const cube = new Mesh( geometry, material );
-  world.add( cube );
-}
+
 
 function update(){
   requestAnimationFrame(update);
   orientationControls.update();
   cameraPreview.update();
-  FireMarker.update();
+  geoMap.update();
   renderer.render(scene, camera);
 }
 

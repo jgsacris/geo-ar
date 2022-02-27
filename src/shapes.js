@@ -20,7 +20,8 @@ export function createArrow(){
   const material = new MeshStandardMaterial({color: 0x00ff00});
   const mesh = new Mesh(geometry, material);
   mesh.scale.multiplyScalar(0.5);
-  mesh.rotateX(-Math.PI/2);
+  mesh.rotation.x = Math.PI/2;
+  mesh.rotation.z = -Math.PI/2
   return mesh;
 
 }

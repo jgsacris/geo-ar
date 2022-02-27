@@ -1,4 +1,3 @@
-import { windowWhen } from 'rxjs';
 import {ShaderMaterial, BoxBufferGeometry, Mesh, AdditiveBlending} from 'three';
 
 const fShader = `
@@ -128,7 +127,9 @@ let marker;
 }
 
  function update(){
-  marker.material.uniforms.iTime.value = performance.now()/1000;
+   if(marker){
+    marker.material.uniforms.iTime.value = performance.now()/1000;
+   }
  }
 
  export const FireMarker = {

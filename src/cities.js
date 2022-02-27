@@ -1,6 +1,6 @@
 export const cities = [
   {
-    city: 'Kiev',
+    city: 'Kyiv',
     latitude: 50.43587465608649, 
     longitude: 30.544295151135124
   },

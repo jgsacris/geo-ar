@@ -27,7 +27,7 @@ export class CityMaker {
   createCityName(name){
     const cityName = new Text();
     cityName.text = name;
-    cityName.fontSize = 0.4;
+    cityName.fontSize = 0.5;
     cityName.color = 0xffffff;
     cityName.anchorX = 'center';
     cityName.anchorY = 'bottom-baseline';
@@ -38,7 +38,7 @@ export class CityMaker {
   createCityDistance(distance){
     const distanceTxt = new Text();
     distanceTxt.text = Math.round(distance/1000) + ' km';
-    distanceTxt.fontSize = 0.2;
+    distanceTxt.fontSize = 0.3;
     distanceTxt.color = 0xffffff;
     distanceTxt.anchorX = 'center';
     distanceTxt.anchorY = 'bottom-baseline';
