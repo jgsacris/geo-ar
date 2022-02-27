@@ -47,4 +47,16 @@ export class CameraPreview{
     this.renderer.render(this.texScene, this.texCamera);
     this.renderer.clearDepth();
   }
+
+  pause(){
+    this.video.srcObject.getTracks().forEach ( track => {
+      track.stop();
+    });
+  }
+
+  dispose(){
+    this.material.dispose();
+    this.texture.dispose();
+    this.geom.dispose();
+  }
 }
