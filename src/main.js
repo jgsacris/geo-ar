@@ -1,4 +1,4 @@
-import '../css/style.css';
+//import '../css/style.css';
 
 import { Scene, PerspectiveCamera, WebGLRenderer, Group, BoxGeometry, MeshBasicMaterial, Mesh, DirectionalLight, AmbientLight} from 'three';
 
@@ -9,6 +9,7 @@ import { ArjsDeviceOrientationControls } from './ArjsDeviceOrientationControls';
 import { Vector3 } from 'three';
 import { CameraPreview } from './camera-preview';
 import { isIOS} from './device';
+import { s } from 'redom';
 
 let scene, camera, renderer;
 let world, geoMap;
@@ -37,10 +38,25 @@ function init(){
     
   }
   initDeviceOrientationControls();
- 
+  setupUI(main);
   cameraPreview = new CameraPreview(scene, renderer);
   cameraPreview.play();
   update();
+}
+
+function setupUI(main){
+  const infoBtn = document.getElementById('infoBtn');
+  const info = document.getElementById('info');
+  infoBtn.addEventListener('click', (e) => {
+    info.style.display='block';
+    console.log('show', e);
+    e.stopPropagation();
+    e.preventDefault();
+  }, true);
+  document.body.addEventListener('click', ()=> {
+    console.log('hide');
+    info.style.display= 'none';
+  })
 }
 
 function setupPermissions(){
