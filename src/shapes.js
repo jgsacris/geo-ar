@@ -21,7 +21,6 @@ export function createArrow(){
   const mesh = new Mesh(geometry, material);
   mesh.scale.multiplyScalar(0.5);
   mesh.rotation.x = Math.PI/2;
-  mesh.rotation.z = -Math.PI/2
   return mesh;
 
 }

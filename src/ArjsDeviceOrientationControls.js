@@ -77,7 +77,8 @@ export class ArjsDeviceOrientationControls {
       onScreenOrientationChangeEvent();
 
       window.addEventListener('orientationchange', onScreenOrientationChangeEvent, false);
-      window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
+      //window.addEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
+      window.addEventListener('deviceorientationabsolute', onDeviceOrientationChangeEvent, false);
 
       scope.enabled = true;
 
@@ -86,7 +87,7 @@ export class ArjsDeviceOrientationControls {
     this.disconnect = function () {
 
       window.removeEventListener('orientationchange', onScreenOrientationChangeEvent, false);
-      window.removeEventListener('deviceorientation', onDeviceOrientationChangeEvent, false);
+      window.removeEventListener('deviceorientationabsolute', onDeviceOrientationChangeEvent, false);
 
       scope.enabled = false;
 

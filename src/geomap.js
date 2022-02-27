@@ -50,7 +50,7 @@ export class GeoMap{
         cm.createCityDistance(distance);
 
         console.log('bearing for '+city.city, bearing);
-        const radBearing = MathUtils.degToRad(bearing) + Math.PI;
+        const radBearing = MathUtils.degToRad(bearing);
         const y = r * Math.cos(radBearing);
         const x = r * Math.sin(-radBearing);
 
