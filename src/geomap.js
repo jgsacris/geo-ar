@@ -14,6 +14,13 @@ export class GeoMap{
 
   }
 
+  refresh(){
+    this.cityMarkers.forEach((m)=>{
+      m.removeFromParent();
+    });
+    this.createCities();
+  }
+
   createCities(){
     const r = 10;
     location.init((localPosition) => {
@@ -57,7 +64,7 @@ export class GeoMap{
         marker.position.set(x, 1, y);
         marker.lookAt(center);
         this.world.add(marker);
-
+        return marker;
       })
     });
   }

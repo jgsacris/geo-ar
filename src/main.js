@@ -56,6 +56,13 @@ function setupUI(main){
   document.body.addEventListener('click', ()=> {
     console.log('hide');
     info.style.display= 'none';
+  });
+
+  const refreshBtn = document.getElementById('refreshBtn');
+  refreshBtn.addEventListener('click', () => {
+    if(geoMap){
+      geoMap.refresh();
+    }
   })
 }
 
