@@ -18,7 +18,7 @@ export class GeoMap{
       console.log('position', localPosition);
       const center = new Vector3(0,0,0);
       const coords = localPosition.coords;
-      this.cityMarers = cities.map(city => {
+      this.cityMarkers = cities.map(city => {
         console.log('city', city);
         const cm = new CityMaker(city.city);
         const bearing =  getGreatCircleBearing(

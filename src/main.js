@@ -7,21 +7,27 @@ import { GeoMap } from './geomap';
 
 import { ArjsDeviceOrientationControls } from './ArjsDeviceOrientationControls';
 import { Vector3 } from 'three';
+import { CameraPreview } from './camera-preview';
 
 let scene, camera, renderer;
 let world, geoMap;
 let arrow;
 let orientationControls;
+let cameraPreview;
 
 function init(){
   scene = new Scene();
   camera = new PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
   renderer = new WebGLRenderer({antialias:true});
+  
   resize();
   document.body.appendChild(renderer.domElement);
   setupSceneContent();
 
+  
   initDeviceOrientationControls();
+  cameraPreview = new CameraPreview(scene, renderer);
+  cameraPreview.play();
   update();
 }
 
@@ -63,6 +69,7 @@ function test(){
 function update(){
   requestAnimationFrame(update);
   orientationControls.update();
+  cameraPreview.update();
   renderer.render(scene, camera);
 }
 
