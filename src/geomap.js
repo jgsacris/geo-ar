@@ -1,4 +1,4 @@
-import { getRhumbLineBearing, getGreatCircleBearing, getDistance} from 'geolib';
+import { getGreatCircleBearing, getDistance} from 'geolib';
 import { Vector3, MathUtils, Group } from 'three';
 import { location } from './location';
 import { cities } from './cities';
@@ -23,7 +23,7 @@ export class GeoMap{
 
   createCities(){
     const r = 10;
-    location.init((localPosition) => {
+    location.getPosition ((localPosition) => {
       const center = new Vector3(0,0,0);
       const coords = localPosition.coords;
       this.cityMarkers = cities.map(city => {

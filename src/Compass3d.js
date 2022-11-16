@@ -21,7 +21,7 @@ function _onDeviceOrientation (event) {
       if (event.webkitCompassAccuracy < 50) {
           heading = event.webkitCompassHeading * Math.PI/360;
       } else {
-          console.warn('webkitCompassAccuracy is event.webkitCompassAccuracy');
+          console.warn('webkitCompassAccuracy is ', event.webkitCompassAccuracy);
       }
   } else if (event.alpha !== null) {
       if (event.absolute === true || event.absolute === undefined) {
@@ -35,12 +35,20 @@ function _onDeviceOrientation (event) {
   bearing$.next(heading);
 }
 
+/**
+ * https://en.wikipedia.org/wiki/Rotation_matrix
+ * https://w3c.github.io/deviceorientation/spec-source-orientation.html#worked-example
+ * @param {*} alpha 
+ * @param {*} beta 
+ * @param {*} gamma 
+ * @returns the compass heading in radians
+ */
 function _computeCompassHeading (alpha, beta, gamma) {
-
+  const degtorad = Math.PI / 180;
   // Convert degrees to radians
-  var alphaRad = alpha * (Math.PI / 180);
-  var betaRad = beta * (Math.PI / 180);
-  var gammaRad = gamma * (Math.PI / 180);
+  var alphaRad = alpha * degtorad;
+  var betaRad = beta * degtorad;
+  var gammaRad = gamma * degtorad;
 
   // Calculate equation components
   var cA = Math.cos(alphaRad);
@@ -62,11 +70,6 @@ function _computeCompassHeading (alpha, beta, gamma) {
   } else if (rA < 0) {
       compassHeading += 2 * Math.PI;
   }
-
-
- 
-  // Convert radians to degrees
-  //compassHeading *= 180 / Math.PI;
 
   return compassHeading;
 }

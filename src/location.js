@@ -32,7 +32,7 @@ function getLocalPosition$(){
   return localPosition$.asObservable();
 }
 
-function init(success){
+function getPosition(success){
   const options = {
     enableHighAccuracy: true,
     timeout: 5000,
@@ -54,7 +54,7 @@ function initGPSWatch(){
 }
 
 export const location = {
-  init,
+  getPosition,
   initGPSWatch,
   getLocalPosition$
 }

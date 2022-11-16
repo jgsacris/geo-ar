@@ -1,3 +1,7 @@
+/**
+ * This is just a reference, this module is not used in this project
+ */
+
 import './compass.css'
 
 const compassCircle = document.querySelector(".compass-circle");

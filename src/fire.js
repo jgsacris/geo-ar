@@ -111,28 +111,28 @@ const uniforms = {
 
 let marker;
 
- function createFireMarker(){
-  const customMaterial = new ShaderMaterial({
-    transparent: true,
-    blending: AdditiveBlending,
-    uniforms,
-    vertexShader: vShader,
-    fragmentShader: fShader
-  });
+function createFireMarker(){
+const customMaterial = new ShaderMaterial({
+	transparent: true,
+	blending: AdditiveBlending,
+	uniforms,
+	vertexShader: vShader,
+	fragmentShader: fShader
+});
 
-  const geometry = new BoxBufferGeometry(1, 1, 0.00001);
-  
-  marker = new Mesh(geometry, customMaterial);
-  return marker;
+const geometry = new BoxBufferGeometry(1, 1, 0.00001);
+
+marker = new Mesh(geometry, customMaterial);
+return marker;
 }
 
- function update(){
-   if(marker){
-    marker.material.uniforms.iTime.value = performance.now()/1000;
-   }
- }
+function update(){
+	if(marker){
+	marker.material.uniforms.iTime.value = performance.now()/1000;
+	}
+}
 
- export const FireMarker = {
-  createFireMarker,
-  update
- }
+export const FireMarker = {
+createFireMarker,
+update
+}
